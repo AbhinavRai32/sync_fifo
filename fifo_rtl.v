@@ -16,13 +16,17 @@ module fifo_rtl #(
     output wire almost_empty,
     output reg overflow,
     output reg underflow,
-    output wire empty,full
+    output wire empty,full,
+    output wire [4:0] wptr_out,rptr_out
 );
     
 localparam ADDR_BITS = $clog2(depth);     // 16 → 4
 localparam PTR_BITS  = ADDR_BITS + 1;     // 4+1 = 5 (extra MSB trick!)
 
-reg [PTR_BITS-1:0]  wptr, rptr;           // 5-bit pointers
+//reg [PTR_BITS-1:0]  wptr, rptr;           // 5-bit pointers
+reg [4:0] wptr,rptr;
+assign  wptr_out = wptr ;
+assign  rptr_out = rptr ;
 reg [width-1:0]     mem [0:depth-1];      // memory array
 wire [ADDR_BITS-1:0]wptrd=wptr[PTR_BITS-2:0];                // lower bit of wptr and rptr where data is stored and msb tells u status of full and empty
 wire [ADDR_BITS-1:0]rptrd=rptr[PTR_BITS-2:0];
