@@ -13,7 +13,7 @@ module fifo_testbench();
     reg [7:0] ref_queue[0:15];
     integer head, tail, count;
     reg [7:0] expected_data;
-
+    reg expected_af,expected_ae;
     // DUT instantiation
     fifo_rtl dut (
         .clk(clk),
@@ -62,6 +62,26 @@ module fifo_testbench();
         end
     end
     endtask
+    
+ task check_almost_full(input actual_almost_full);
+begin
+    expected_af = (count >= 12);  // expected compute karo
+    if(expected_af == actual_almost_full)
+        $display("[PASS] almost_full: expected=%b, got=%b", expected_af, actual_almost_full);
+    else
+        $display("[FAIL] almost_full: expected=%b, got=%b", expected_af, actual_almost_full);
+end
+endtask
+
+  task check_almost_empty(input actual_almost_empty);
+begin
+    expected_ae = (count <=4);  // expected compute karo
+    if(expected_ae == actual_almost_empty)
+        $display("[PASS] almost_empty: expected=%b, got=%b", expected_af, actual_almost_empty);
+    else
+        $display("[FAIL] almost_empty: expected=%b, got=%b", expected_af, actual_almost_empty);
+end
+endtask
 
     // ============================================
     // CLOCK GENERATION
@@ -82,6 +102,7 @@ module fifo_testbench();
         head = 0;
         tail = 0;
         count = 0;
+        expected_data=0;
 
         // Reset
         @(posedge clk);
@@ -100,7 +121,8 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-
+        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
         // Write 2
         @(posedge clk) #1;
         datain = 8'hBB;
@@ -108,6 +130,8 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
 
         // Write 3
         @(posedge clk) #1;
@@ -116,6 +140,8 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
 
         // Write 4
         @(posedge clk) #1;
@@ -124,6 +150,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
 
         // Write 5
         @(posedge clk) #1;
@@ -132,6 +161,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
 
         // Write 6
         @(posedge clk) #1;
@@ -140,6 +172,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
 
         // Write 7
         @(posedge clk) #1;
@@ -148,6 +183,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
 
         // Write 8
         @(posedge clk) #1;
@@ -156,8 +194,114 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
 
+         
+        //data 9
+        @(posedge clk) #1;
+        datain = 8'h2A;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data10
+         @(posedge clk) #1;
+        datain = 8'h2B;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data11
+         @(posedge clk) #1;
+        datain = 8'h32;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data12
+         @(posedge clk) #1;
+        datain = 8'h62;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data13
+         @(posedge clk) #1;
+        datain = 8'h22;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data14
+         @(posedge clk) #1;
+        datain = 8'hBA;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data15
+         @(posedge clk) #1;
+        datain = 8'hCF;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
+        //data16
+         @(posedge clk) #1;
+        datain = 8'hDE;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        
         $display("\n[STATUS] After writes: ref_count=%d, empty=%b, full=%b\n", count, empty, full);
+        
+          @(posedge clk) #1;
+        datain = 8'h33;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+        
+          @(posedge clk) #1;
+        datain = 8'h44;
+        wr_en = 1;
+        @(posedge clk) #1;
+        ref_push(datain);
+        wr_en = 0;
+          $display("\n[STATUS] After writes: ref_count=%d, empty=%b, full=%b\n, overflow=%d\n", count, empty, full,overflow);
 
         // ===== WAIT BEFORE READING =====
         @(posedge clk) #1;
@@ -172,9 +316,10 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         // Wait for registered output (3-edge delay from your RTL structure)
-        @(posedge clk) #1;
-        @(posedge clk) #1;
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 1");
 
@@ -184,8 +329,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 2");
 
@@ -195,8 +341,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 3");
 
@@ -206,8 +353,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 4");
 
@@ -217,8 +365,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 5");
 
@@ -228,8 +377,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 6");
 
@@ -239,8 +389,9 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 7");
 
@@ -250,13 +401,128 @@ module fifo_testbench();
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-        @(posedge clk) #1;
-        @(posedge clk) #1;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 8");
+        
+        //READ9
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 9");
+        
+        //READ10
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 10");
+        
+        //READ11
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 11");
+        
+        //READ12
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 12");
+        
+        //READ13
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 13");
+        
+        //READ14
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 14");
+        
+        //READ15
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 15");
+        
+        //READ16
+        @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+        ref_pop(expected_data);
+        rd_en = 0;
+         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_empty(almost_empty);
+
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read 16");
+        
 
         $display("\n[STATUS] After reads: ref_count=%d, empty=%b, full=%b\n", count, empty, full);
-
+        
+          @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+     
+        rd_en = 0;
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read x");
+        
+          @(posedge clk) #1;
+        rd_en = 1;
+        @(posedge clk) #1;
+      
+        rd_en = 0;
+        @(posedge clk) #1;
+        compare_result(expected_data, dataout, "Read x");
+        
+         $display("\n[STATUS] After reads: ref_count=%d, empty=%b, full=%b\n,underflow=%d\n", count, empty, full,underflow);
         // ===== SIMULTANEOUS READ-WRITE TEST =====
         $display("\n----- SIMULTANEOUS READ-WRITE TEST -----");
 
@@ -286,14 +552,12 @@ module fifo_testbench();
         ref_push(datain);
         rd_en = 0;
         wr_en = 0;
-        
-        @(posedge clk) #1;
-        @(posedge clk) #1;
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "SimRead 1");
 
         @(posedge clk) #1;
         $display("\n===== FIFO TEST END =====\n");
+
         $finish;
     end
 
