@@ -121,7 +121,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
         // Write 2
         @(posedge clk) #1;
@@ -130,7 +130,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         // Write 3
@@ -140,7 +140,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-        check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+        check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
         // Write 4
@@ -150,7 +150,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
 
@@ -161,7 +161,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
 
@@ -172,7 +172,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
 
@@ -183,7 +183,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
 
@@ -194,7 +194,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
          
@@ -205,7 +205,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         
@@ -216,7 +216,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         
@@ -227,7 +227,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         
@@ -238,7 +238,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         
@@ -249,7 +249,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         
@@ -260,7 +260,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
         
@@ -271,7 +271,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         
@@ -282,7 +282,7 @@ endtask
         @(posedge clk) #1;
         ref_push(datain);
         wr_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         
@@ -316,10 +316,10 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
-        // Wait for registered output (3-edge delay from your RTL structure)
+        // Wait for registered output (1-edge delay from your RTL structure)
         @(posedge clk) #1;
         compare_result(expected_data, dataout, "Read 1");
 
@@ -329,7 +329,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -341,7 +341,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -353,7 +353,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -365,7 +365,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -377,7 +377,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);   
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -389,7 +389,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -401,7 +401,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -413,7 +413,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -425,7 +425,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full); 
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -437,7 +437,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full); 
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -449,7 +449,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full); 
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -461,7 +461,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -473,7 +473,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -485,7 +485,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);    
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -497,7 +497,7 @@ endtask
         @(posedge clk) #1;
         ref_pop(expected_data);
         rd_en = 0;
-         check_almost_full(almost_full);    // ← ab dono sync mein hain, check kar
+         check_almost_full(almost_full);  
         check_almost_empty(almost_empty);
 
         @(posedge clk) #1;
@@ -523,6 +523,7 @@ endtask
         compare_result(expected_data, dataout, "Read x");
         
          $display("\n[STATUS] After reads: ref_count=%d, empty=%b, full=%b\n,underflow=%d\n", count, empty, full,underflow);
+        
         // ===== SIMULTANEOUS READ-WRITE TEST =====
         $display("\n----- SIMULTANEOUS READ-WRITE TEST -----");
 
