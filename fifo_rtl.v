@@ -72,7 +72,7 @@ else if (wr_en&&rd_en&&!full&&empty)
 begin
 mem[wptr[ADDR_BITS-1:0]]<=datain;
 wptr<=wptr+1'b1;
-
+underflow<=1;
 end
 //write condition 
 else if(wr_en&&!full)
@@ -86,7 +86,7 @@ begin
  dataout<= mem[rptr[ADDR_BITS-1:0]];
 rptr<=rptr+1'b1;
 end
-//overflo/underflow sticky flags
+//overflow/underflow sticky flags
  else begin
         if(wr_en && full)
             overflow <= 1;
