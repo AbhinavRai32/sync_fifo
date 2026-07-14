@@ -24,7 +24,7 @@ localparam ADDR_BITS = $clog2(depth);     // 16 → 4
 localparam PTR_BITS  = ADDR_BITS + 1;     // 4+1 = 5 (extra MSB trick!)
 
 //reg [PTR_BITS-1:0]  wptr, rptr;           // 5-bit pointers
-reg [4:0] wptr,rptr;
+    reg [PTR_BITS-1:0] wptr,rptr;
 assign  wptr_out = wptr ;
 assign  rptr_out = rptr ;
 reg [width-1:0]     mem [0:depth-1];      // memory array
