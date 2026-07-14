@@ -87,10 +87,17 @@ begin
 rptr<=rptr+1'b1;
 end
 //overflo/underflow sticky flags
-else if(wr_en&&full)
-overflow<=1;
-else if(rd_en&&empty)
-underflow<=1;
+ else begin
+        if(wr_en && full)
+            overflow <= 1;
+        else if(!full)          // ← clear condition add karo
+            overflow <= 0;
+            
+        if(rd_en && empty)
+            underflow <= 1;
+        else if(!empty)         // ← clear condition add karo
+            underflow <= 0;
+    end
 
 
 end
